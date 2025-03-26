@@ -4,7 +4,7 @@ This is basic implementation of Git in Python. I decided to make this project wh
 
 For deeper insights on the design architecture of Git, check out [DESIGN.md](DESIGN.md)
 
-For deeper insights on each command, check out:
+For deeper insights on each command and their usage, check out:
 | Command | Page |
 |---------------|----------------------------------------|
 | `init` | [init.md](/commands/init.md) |
@@ -51,7 +51,7 @@ mygit cat-file -p <blob_sha>
 mygit hash-object -w test.txt
 
 # Inspect Tree Object
-mygit ls-tree --name-only random_hash_object
+mygit ls-tree --name-only <blob_sha>
 
 # Create a tree object of the current state
 mygit write-tree
