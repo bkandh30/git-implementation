@@ -16,22 +16,34 @@ cd git-implementation
 pip install -r requirements.txt
 ```
 
+## Local Testing
+
+For testing the script locally, you can use shell alias:
+
+```bash
+alias mygit=/path-to-your-repo/mygit.sh
+
+mkdir -p /tmp/test_dir && cd /tmp/test_dir
+mygit init
+
+echo -n "Hello World" > test.txt
+```
+
 ## Basic Usage
 
 ```bash
 # Initialize a new repository
-./mygit init
+mygit init
 
-# Stage a file
-./mygit add README.md
+# Read contents from the blob
+mygit cat-file -p <blob_sha>
 
-# Commit changes
-./mygit commit -m "Initial commit"
+# Compute SHA hash of Git object
+mygit hash-object -w test.txt
 
-# View commit history
-./mygit log
+# Inspect Tree Object
+mygit ls-tree --name-only random_hash_object
 
-# Create and switch to a new branch
-./mygit branch new-feature
-./mygit checkout new-feature
+# Create a tree object of the current state
+mygit write-tree
 ```
