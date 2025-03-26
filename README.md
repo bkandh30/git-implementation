@@ -13,8 +13,6 @@ For deeper insights on each command and their usage, check out:
 | `ls-tree` | [ls-tree.md](/commands/ls-tree.md) |
 | `write-tree` | [write-tree.md](/commands/write-tree.md) |
 
-## Features
-
 ## Installation
 
 ```bash
