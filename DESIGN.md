@@ -18,6 +18,50 @@ When we run `git init` in our project, it creates a `.git` directory under the p
   - `heads/` contains branches.
   - `tags/` contains tags.
 
+## Git Objects
+
+Git stores the data as a series of content-addressable objects, each identified by SHA hash. These objects live in `.git/objects/`
+
+- **Blobs:** A blob stores the actual content of a file - just the raw data, no file name or metadata. Every version of a file becomes a new blob.
+- **Trees:** A tree object represents a directory. It stores file names, their associated blob hashes, permissions and other tree objects (for sub folders). Trees form a hierarchy as they connect file names (and folder structures) to blob objects
+- **Commits:** A commit object points to one tree(representing the entire project at that moment), zero or more parent commits (for history) and author, message and timestamp. Commits tie everything together: blobs (file content), trees (folder structure), and history (previous commits).
+
+## Git Object Storage
+
+Git objects are stored in the `.git/objects` directory. The path to an object is derived from its hash. The path to an object is derived from its hash. The path for the object with the hash `a7f3d2b9e4c0f15e8a6c9b31d7f2846ab5cde987` would be:
+
+```bash
+./.git/objects/a7/f3d2b9e4c0f15e8a6c9b31d7f2846ab5cde987
+```
+
+The file is not directly placed in `./git/objects` directory. Instead, it is placed in a directory named with the first two characters of the object's hash. The remaining 38 characters are used as the file name.
+
+## Blob Object Storage
+
+Say when we have a file `hello.txt` with the contents:
+
+```bash
+Hello, world!
+```
+
+When we run:
+
+```bash
+git add hello.txt
+```
+
+Git creates a blob object:
+
+- The content stored is `Hello, world!`
+- Its SHA hash (example) is `2ef7bde608ce5404e97d5f042f95f89f1c232871`
+- The object is saved at:
+
+```bash
+.git/objects/2e/f7bde608ce5404e97d5f042f95f89f1c232871
+```
+
+As you can notice, Git does not store full copies of your project each time you commit. It only stores new blobs when the content actually changes.
+
 ## Git Architecture
 
 Git has three-stage model optimized for tracking changes: **the working directory**, **staging area** and **local repository**. Additionally, Git includes the concept of **remote repositories** for collaboration.
