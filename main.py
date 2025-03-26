@@ -42,6 +42,18 @@ def main():
             f.write(zlib.compress(store))
         
         print(sha, end="")
+    elif command == "ls-tree" and sys.argv[2] == "--name-only":
+        tree_sha = sys.argv[3]
+        folder_name = tree_sha[:2]
+        file_name = tree_sha[2:]
+        with open(f".git/objects/{folder_name}/{file_name}","rb") as f:
+            data = zlib.decompress(f.read())
+            _, binary_data = data.split(b"\x00",maxsplit=1)
+            while binary_data:
+                mode, binary_data = binary_data.split(b"\x00",maxsplit=1)
+                _, name = mode.split()
+                binary_data = binary_data[20:]
+                print(name.decode(encoding="utf-8"))
     else:
         raise RuntimeError(f"Unknown command #{command}")
 
