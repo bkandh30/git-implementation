@@ -4,7 +4,7 @@
 
 ## Working
 
-`cat-file` command works by reading the content of the blob object file from the `.git/objects` directory. The contents are then decompressed using **Zlib**. The headers are removed from the file and the actual content is then extracted. The results are then displayed to the user.
+`git cat-file` command works by reading the content of the blob object file from the `.git/objects` directory. The contents are then decompressed using **Zlib**. The headers are removed from the file and the actual content is then extracted. The results are then displayed to the user.
 
 ## Command Usage
 

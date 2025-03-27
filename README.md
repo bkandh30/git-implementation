@@ -12,6 +12,7 @@ For deeper insights on each command and their usage, check out:
 | `hash-object` | [hash-object.md](/commands/hash-object.md) |
 | `ls-tree` | [ls-tree.md](/commands/ls-tree.md) |
 | `write-tree` | [write-tree.md](/commands/write-tree.md) |
+| `commit-tree` | [commit-tree.md](/commands/commit-tree.md) |
 
 ## Installation
 
@@ -53,4 +54,7 @@ mygit ls-tree --name-only <blob_sha>
 
 # Create a tree object of the current state
 mygit write-tree
+
+#Create a new commit with the new tree SHA
+mygit commit-tree <tree_sha> -p <commit_sha> -m <message>
 ```

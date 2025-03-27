@@ -4,7 +4,11 @@
 
 ## Working
 
-`write-tree` command works by.
+`write-tree` command works consists of two functions: `create_blob_entry()` and `write_tree()`.
+
+`create_blob_entry()` handles individual files, turning their content into Git blob objects.
+
+`write_tree()` handles directories. It iterates through sorted directory contents, calls `create_blob_entry()` for files or recursively calls itself (`write_tree()`) for subdirectories to get their respective SHA-1 hashes, assembles these pieces of information (mode, name, binary SHA) into the specific Git tree object format, and finally creates the tree object itself. Together, they allow you to take a directory structure on disk and represent it as a hierarchy of Git tree and blob objects stored in the `.git/objects` database.
 
 ## Command Usage
 
