@@ -2,6 +2,8 @@ import sys
 import os
 import zlib
 import hashlib
+import time
+import datetime
 
 def create_blob_entry(path, write=True):
     with open(path, "rb") as f:
@@ -43,6 +45,51 @@ def write_tree(path:str):
         f.write(zlib.compress(s))
     return sha1
 
+def commit_tree(args):
+    if len(args) < 3:
+        raise RuntimeError("Usage: commit-tree <tree-hash> -p <parent-commit> -m <message>")
+    
+    tree_hash = args[0]
+    parent_hash = None
+    message = None
+
+    i = 1
+
+    while i < len(args):
+        if args[i] == "-p" and i + 1 < len(args):
+            parent_hash = args[i + 1]
+            i += 2
+        elif args[i] == "-m" and i + 1 < len(args):
+            message = args[i + 1]
+            i += 2
+        else:
+            i += 1
+
+    if not message:
+        raise RuntimeError("Commit message is required")
+    
+    content = f"tree {tree_hash}\n"
+    if parent_hash:
+        content += f"parent {parent_hash}\n"
+    
+    author = "bhavya.kandhari.eng@gmail.com"
+
+    content += f"author {author} {int(time.time())} {time.timezone}\n"
+    content += f"committer {author} {int(time.time())} {time.timezone}\n"
+    content += f"\n{message}\n"
+
+    #Create commit object
+    header = f"commit {len(content)}\0"
+    store = (header + content).encode("utf-8")
+    sha = hashlib.sha1(store).hexdigest()
+
+    #Write commit object
+    os.makedirs(f".git/objects/{sha[:2]}", exist_ok=True)
+    with open(f".git/objects/{sha[:2]}/{sha[2:]}", "wb") as f:
+        f.write(zlib.compress(store))
+
+    print(sha)
+    return sha
 
 def main():
     
@@ -96,6 +143,8 @@ def main():
                 print(name.decode(encoding="utf-8"))
     elif command == "write-tree":
         print(write_tree("./"))
+    elif command == "commit-tree":
+        commit_tree(sys.argv[2:])
     else:
         raise RuntimeError(f"Unknown command #{command}")
 
