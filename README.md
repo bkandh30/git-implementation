@@ -13,6 +13,7 @@ For deeper insights on each command and their usage, check out:
 | `ls-tree` | [ls-tree.md](/commands/ls-tree.md) |
 | `write-tree` | [write-tree.md](/commands/write-tree.md) |
 | `commit-tree` | [commit-tree.md](/commands/commit-tree.md) |
+| `clone` | [clone.md](/commands/clone.md) |
 
 ## Installation
 
@@ -57,4 +58,7 @@ mygit write-tree
 
 #Create a new commit with the new tree SHA
 mygit commit-tree <tree_sha> -p <commit_sha> -m <message>
+
+#Clone a repository
+mygit clone https://github.com/code/repository/url <some_dir>
 ```
