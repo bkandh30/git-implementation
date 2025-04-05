@@ -2,7 +2,7 @@
 
 This is basic implementation of Git in Python. I decided to make this project when I was learning about Git internals and how a version control works under the hood.
 
-For a detailed explanation of the Git Protocol, check out: [LLD.md](/commands/LLD.md)
+For a detailed explanation of the Git Protocol, check out: [Implementation.md](Implementation.md)
 
 For deeper insights on the design architecture of Git, check out [DESIGN.md](DESIGN.md)
 
